@@ -1,4 +1,5 @@
-FROM python:3-alpine
+ARG REPO=library
+FROM ${REPO}/python:3-alpine
 
 RUN mkdir -p /src
 WORKDIR /src
