@@ -1,0 +1,137 @@
+kind: pipeline
+name: linux-amd64
+
+steps:
+  - name: get qemu
+    image: ubuntu:bionic
+    commands:
+      - apt-get update
+      - apt-get install -y make wget
+      - make build/qemu-x86_64-static
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - tag
+
+  - name: build
+    image: plugins/docker
+    settings:
+      repo: iamthefij/cloudflare-ddns
+      auto_tag: true
+      auto_tag_suffix: linux-amd64
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - tag
+
+---
+kind: pipeline
+name: linux-arm
+
+steps:
+  - name: get qemu
+    image: ubuntu:bionic
+    commands:
+      - apt-get update
+      - apt-get install -y make wget
+      - make build/qemu-arm-static
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - tag
+
+  - name: build
+    image: plugins/docker
+    settings:
+      repo: iamthefij/cloudflare-ddns
+      auto_tag: true
+      auto_tag_suffix: linux-arm
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      build_args:
+        - ARCH=arm
+        - REPO=arm32v6
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - tag
+
+---
+kind: pipeline
+name: linux-arm64
+
+steps:
+  - name: get qemu
+    image: ubuntu:bionic
+    commands:
+      - apt-get update
+      - apt-get install -y make wget
+      - make build/qemu-aarch64-static
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - tag
+
+  - name: build
+    image: plugins/docker
+    settings:
+      repo: iamthefij/cloudflare-ddns
+      auto_tag: true
+      auto_tag_suffix: linux-arm64
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      build_args:
+        - ARCH=aarch64
+        - REPO=arm64v8
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - tag
+
+---
+kind: pipeline
+name: manifest
+
+depends_on:
+  - linux-amd64
+  - linux-arm
+  - linux-arm64
+
+steps:
+  - name: publish manifest
+    image: plugins/manifest
+    settings:
+      spec: manifest.tmpl
+      auto_tag: true
+      ignore_missing: true
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - tag
+
