@@ -1,6 +1,10 @@
 ARG REPO=library
 FROM ${REPO}/python:3-alpine
 
+ARG ARCH=x86_64
+COPY ./qemu-${ARCH}-static /usr/bin/
+
+
 RUN mkdir -p /src
 WORKDIR /src
 

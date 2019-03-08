@@ -11,6 +11,14 @@ update:
 build:
 	docker build . -t ${DOCKER_TAG}
 
+build/qemu-arm-static:
+	mkdir -p build
+	wget -N https://github.com/multiarch/qemu-user-static/releases/download/v2.9.1-1/x86_64_qemu-${target_arch}-static.tar.gz
+	tar -xvf x86_64_qemu-${target_arch}-static.tar.gz
+
+cross-build-arm32v6:
+	docker build --build-arg REPO=arm32v6 --build-arg ARCH=arm . -t ${DOCKER_TAG}-arm32v6
+
 run: build
 	docker run --rm -e DOMAIN=${DOMAIN} \
 		-e CF_API_EMAIL=${CF_API_EMAIL} \

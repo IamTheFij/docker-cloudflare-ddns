@@ -1,0 +1,4 @@
+qemu-aarch64-static
+qemu-arm-static
+qemu-x86_64-static
+*.tar.gz
