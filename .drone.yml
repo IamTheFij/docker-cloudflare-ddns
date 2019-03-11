@@ -8,6 +8,12 @@ steps:
       - apt-get update
       - apt-get install -y make wget
       - make build/qemu-x86_64-static
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - tag
 
   - name: build
     image: plugins/docker
@@ -19,6 +25,12 @@ steps:
         from_secret: docker_username
       password:
         from_secret: docker_password
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - tag
 
 ---
 kind: pipeline
@@ -31,6 +43,12 @@ steps:
       - apt-get update
       - apt-get install -y make wget
       - make build/qemu-arm-static
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - tag
 
   - name: build
     image: plugins/docker
@@ -45,6 +63,12 @@ steps:
       build_args:
         - ARCH=arm
         - REPO=arm32v6
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - tag
 
 ---
 kind: pipeline
@@ -57,6 +81,12 @@ steps:
       - apt-get update
       - apt-get install -y make wget
       - make build/qemu-aarch64-static
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - tag
 
   - name: build
     image: plugins/docker
@@ -71,6 +101,12 @@ steps:
       build_args:
         - ARCH=aarch64
         - REPO=arm64v8
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - tag
 
 ---
 kind: pipeline
@@ -92,4 +128,10 @@ steps:
         from_secret: docker_username
       password:
         from_secret: docker_password
+    when:
+      branch:
+        - master
+      event:
+        - push
+        - tag
 
