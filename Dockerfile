@@ -16,4 +16,6 @@ COPY ./update_ddns.py ./update_ddns.py
 
 ENV DOMAIN=""
 
+USER nobody
+
 CMD [ "/src/start.sh" ]
