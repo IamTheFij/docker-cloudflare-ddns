@@ -1,4 +1,5 @@
 DOCKER_TAG ?= cloudflare-ddns-dev-${USER}
+.PHONY: clean all
 
 .PHONY: default
 default: test
@@ -6,11 +7,6 @@ default: test
 .PHONY:test
 test:
 	@echo ok
-
-.PHONY: update
-update:
-	curl -o update_ddns.py https://raw.githubusercontent.com/cloudflare/python-cloudflare/master/examples/example_update_dynamic_dns.py
-	chmod +x update_ddns.py
 
 .PHONY: build
 build: build/qemu-x86_64-static
@@ -35,7 +31,8 @@ cross-build-arm64: build/qemu-aarch64-static
 
 .PHONY: run
 run: build
-	docker run --rm -e DOMAIN=${DOMAIN} \
+	docker run --rm  \
 		-e CF_API_EMAIL=${CF_API_EMAIL} \
 		-e CF_API_KEY=${CF_API_KEY} \
-		${DOCKER_TAG}
+		${DOCKER_TAG} \
+		"${DOMAIN}"
