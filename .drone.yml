@@ -2,18 +2,6 @@ kind: pipeline
 name: linux-amd64
 
 steps:
-  - name: get qemu
-    image: ubuntu:bionic
-    commands:
-      - apt-get update
-      - apt-get install -y make wget
-      - make build/qemu-x86_64-static
-    when:
-      branch:
-        - master
-      event:
-        - push
-        - tag
 
   - name: build
     image: plugins/docker
@@ -37,18 +25,6 @@ kind: pipeline
 name: linux-arm
 
 steps:
-  - name: get qemu
-    image: ubuntu:bionic
-    commands:
-      - apt-get update
-      - apt-get install -y make wget
-      - make build/qemu-arm-static
-    when:
-      branch:
-        - master
-      event:
-        - push
-        - tag
 
   - name: build
     image: plugins/docker
@@ -75,18 +51,6 @@ kind: pipeline
 name: linux-arm64
 
 steps:
-  - name: get qemu
-    image: ubuntu:bionic
-    commands:
-      - apt-get update
-      - apt-get install -y make wget
-      - make build/qemu-aarch64-static
-    when:
-      branch:
-        - master
-      event:
-        - push
-        - tag
 
   - name: build
     image: plugins/docker
