@@ -1,9 +1,10 @@
 ARG REPO=library
+FROM multiarch/qemu-user-static:4.1.0-1 as qemu-user-static
 FROM ${REPO}/python:3-alpine
 
 # TODO: Copy from docker hub image
 ARG ARCH=x86_64
-COPY ./build/qemu-${ARCH}-static /usr/bin/
+COPY --from=qemu-user-static /usr/bin/qemu-* /usr/bin/
 
 RUN mkdir -p /src
 WORKDIR /src

@@ -1,5 +1,5 @@
 DOCKER_TAG ?= cloudflare-ddns-dev-${USER}
-.PHONY: clean all
+.PHONY: clean
 
 .PHONY: default
 default: test
@@ -9,25 +9,19 @@ test:
 	@echo ok
 
 .PHONY: build
-build: build/qemu-x86_64-static
+build:
 	docker build . -t ${DOCKER_TAG}
 
-build/qemu-arm-static:
-	./get_qemu.sh arm
-
-build/qemu-x86_64-static:
-	./get_qemu.sh x86_64
-
-build/qemu-aarch64-static:
-	./get_qemu.sh aarch64
-
 .PHONY: cross-build-arm
-cross-build-arm: build/qemu-arm-static
+cross-build-arm:
 	docker build --build-arg REPO=arm32v6 --build-arg ARCH=arm . -t ${DOCKER_TAG}-linux-arm
 
 .PHONY: cross-build-arm64
-cross-build-arm64: build/qemu-aarch64-static
+cross-build-arm64:
 	docker build --build-arg REPO=arm64v8 --build-arg ARCH=aarch64 . -t ${DOCKER_TAG}-linux-arm64
+
+.PHONY: all
+all: build cross-build-arm cross-build-arm64
 
 .PHONY: run
 run: build
