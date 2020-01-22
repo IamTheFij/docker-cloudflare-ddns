@@ -1,6 +1,6 @@
 # Docker Cloudfare DDNS
 
-Simple Docker image to dynamically update a Cloudflare DNS record.
+Simple Docker image that wraps an example script to dynamically update a Cloudflare DNS record.
 
 ## Usage
 
