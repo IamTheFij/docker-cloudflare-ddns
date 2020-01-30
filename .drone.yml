@@ -1,3 +1,4 @@
+---
 kind: pipeline
 name: linux-amd64
 
@@ -38,7 +39,7 @@ steps:
         from_secret: docker_password
       build_args:
         - ARCH=arm
-        - REPO=arm32v6
+        - REPO=arm32v7
     when:
       branch:
         - master
@@ -98,4 +99,3 @@ steps:
       event:
         - push
         - tag
-

@@ -1,14 +1,15 @@
 ARG REPO=library
 
-FROM multiarch/qemu-user-static:4.1.0-1 as qemu-user-static
+FROM multiarch/qemu-user-static:4.2.0-2 as qemu-user-static
 # Make sure a dummy x86_64 file exists so that the copy command doesn't error
-RUN touch /usr/bin/qemu-x86_64-fake
+# RUN touch /usr/bin/qemu-x86_64-fake
 
 FROM ${REPO}/python:3-alpine
 
 # Copy mutliarch file to run builds on x86_64
 ARG ARCH=x86_64
-COPY --from=qemu-user-static /usr/bin/qemu-${ARCH}-* /usr/bin/
+COPY --from=qemu-user-static /usr/bin/qemu-* /usr/bin/
+# COPY --from=qemu-user-static /usr/bin/qemu-${ARCH}-* /usr/bin/
 
 RUN mkdir -p /src
 WORKDIR /src
