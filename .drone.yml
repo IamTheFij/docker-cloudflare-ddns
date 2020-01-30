@@ -1,3 +1,4 @@
+---
 kind: pipeline
 name: linux-amd64
 
@@ -13,9 +14,10 @@ steps:
         from_secret: docker_username
       password:
         from_secret: docker_password
+      dry_run: true
     when:
-      branch:
-        - master
+      # branch:
+      #   - master
       event:
         - push
         - tag
@@ -39,9 +41,10 @@ steps:
       build_args:
         - ARCH=arm
         - REPO=arm32v7
+      dry_run: true
     when:
-      branch:
-        - master
+      # branch:
+      #   - master
       event:
         - push
         - tag
@@ -65,9 +68,10 @@ steps:
       build_args:
         - ARCH=aarch64
         - REPO=arm64v8
+      dry_run: true
     when:
-      branch:
-        - master
+      # branch:
+      #   - master
       event:
         - push
         - tag
@@ -98,4 +102,3 @@ steps:
       event:
         - push
         - tag
-
