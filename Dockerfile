@@ -8,8 +8,8 @@ FROM ${REPO}/python:3-alpine
 
 # Copy mutliarch file to run builds on x86_64
 ARG ARCH=x86_64
-COPY --from=qemu-user-static /usr/bin/qemu-* /usr/bin/
-# COPY --from=qemu-user-static /usr/bin/qemu-${ARCH}-* /usr/bin/
+# COPY --from=qemu-user-static /usr/bin/qemu-* /usr/bin/
+COPY --from=qemu-user-static /usr/bin/qemu-${ARCH}-* /usr/bin/
 
 RUN mkdir -p /src
 WORKDIR /src

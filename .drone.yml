@@ -38,7 +38,7 @@ steps:
         from_secret: docker_password
       build_args:
         - ARCH=arm
-        - REPO=arm32v6
+        - REPO=arm32v7
     when:
       branch:
         - master
