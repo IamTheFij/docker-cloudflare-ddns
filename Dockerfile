@@ -18,7 +18,7 @@ ENV CF_VERSION=2.6.0
 ADD https://raw.githubusercontent.com/cloudflare/python-cloudflare/$CF_VERSION/examples/example_update_dynamic_dns.py ./update_ddns.py
 RUN chmod +x ./update_ddns.py
 
-RUN pip install cloudflare==$CF_VERSION
+RUN pip install --no-cache-dir cloudflare==$CF_VERSION
 
 ENV DOMAIN=""
 
