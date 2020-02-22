@@ -26,3 +26,9 @@ Or by providing a file mounted to the working directory in the image, `/src/.clo
 Then run. To execute from this directory, you can use the convenient Make target.
 
     make run
+
+## Source
+
+Original source: https://git.iamthefij.com/iamthefij/docker-cloudflare-ddns
+
+Github mirror: https://github.com/iamthefij/docker-cloudflare-ddns
