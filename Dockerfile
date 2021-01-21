@@ -15,7 +15,7 @@ RUN mkdir -p /src
 WORKDIR /src
 
 # Get Cloudflare example script
-ENV CF_VERSION=2.8.15
+ENV CF_VERSION=2.6.0
 ADD https://raw.githubusercontent.com/cloudflare/python-cloudflare/$CF_VERSION/examples/example_update_dynamic_dns.py ./update_ddns.py
 RUN chmod +rx ./update_ddns.py
 
