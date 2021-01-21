@@ -2,6 +2,14 @@
 kind: pipeline
 name: linux-amd64
 
+trigger:
+  event:
+    - push
+    - tag
+  refs:
+    - refs/heads/master
+    - refs/tags/v*
+
 steps:
 
   - name: build
@@ -14,16 +22,18 @@ steps:
         from_secret: docker_username
       password:
         from_secret: docker_password
-    when:
-      branch:
-        - master
-      event:
-        - push
-        - tag
 
 ---
 kind: pipeline
 name: linux-arm
+
+trigger:
+  event:
+    - push
+    - tag
+  refs:
+    - refs/heads/master
+    - refs/tags/v*
 
 steps:
 
@@ -40,16 +50,18 @@ steps:
       build_args:
         - ARCH=arm
         - REPO=arm32v7
-    when:
-      branch:
-        - master
-      event:
-        - push
-        - tag
 
 ---
 kind: pipeline
 name: linux-arm64
+
+trigger:
+  event:
+    - push
+    - tag
+  refs:
+    - refs/heads/master
+    - refs/tags/v*
 
 steps:
 
@@ -66,12 +78,6 @@ steps:
       build_args:
         - ARCH=aarch64
         - REPO=arm64v8
-    when:
-      branch:
-        - master
-      event:
-        - push
-        - tag
 
 ---
 kind: pipeline
@@ -81,6 +87,14 @@ depends_on:
   - linux-amd64
   - linux-arm
   - linux-arm64
+
+trigger:
+  event:
+    - push
+    - tag
+  refs:
+    - refs/heads/master
+    - refs/tags/v*
 
 steps:
   - name: publish manifest
@@ -93,9 +107,3 @@ steps:
         from_secret: docker_username
       password:
         from_secret: docker_password
-    when:
-      branch:
-        - master
-      event:
-        - push
-        - tag
