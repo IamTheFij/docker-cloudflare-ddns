@@ -4,7 +4,7 @@ FROM multiarch/qemu-user-static:4.2.0-2 as qemu-user-static
 # Make sure a dummy x86_64 file exists so that the copy command doesn't error
 # RUN touch /usr/bin/qemu-x86_64-fake
 
-FROM ${REPO}/python:3.8-slim
+FROM ${REPO}/python:3.8-alpine
 
 # Copy mutliarch file to run builds on x86_64
 ARG ARCH=x86_64
