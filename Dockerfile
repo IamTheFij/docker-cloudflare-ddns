@@ -19,7 +19,7 @@ ENV CF_VERSION=2.8.15
 ADD https://raw.githubusercontent.com/cloudflare/python-cloudflare/$CF_VERSION/examples/example_update_dynamic_dns.py ./update_ddns.py
 RUN chmod +rx ./update_ddns.py
 
-RUN pip install --no-cache-dir cloudflare==$CF_VERSION
+RUN python -m pip install --no-cache-dir cloudflare==$CF_VERSION
 
 ENV DOMAIN=""
 
