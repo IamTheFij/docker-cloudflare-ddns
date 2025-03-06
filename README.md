@@ -1,3 +1,5 @@
+# Deprecated! Check out newer versions of ddclient
+
 # Docker Cloudfare DDNS
 
 Simple Docker image that wraps an example script to dynamically update a Cloudflare DNS record.
